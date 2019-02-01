@@ -1,0 +1,9 @@
+1. Open command line
+2. Go to the project location using cd C:/{your file location}/Upgrade/codingchallenge
+3. Run the command -> mvn install
+4. Run the command -> mvn test
+5. To verify report go to C:/{your file location}/Upgrade/codingchallenge/target/surefire-reports/index.html
+
+Requirements:
+jdk1.8.0_191
+Chrome v70-72
