@@ -1,0 +1,124 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.upgrade</groupId>
+	<artifactId>codingchallenge</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
+
+	<name>codingchallenge</name>
+	<url>http://maven.apache.org</url>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<selenium.version>2.53.1</selenium.version>
+		<testng.version>6.10</testng.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>selenium-java</artifactId>
+			<version>${selenium.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.testng</groupId>
+			<artifactId>testng</artifactId>
+			<version>${testng.version}</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.mashape.unirest</groupId>
+			<artifactId>unirest-java</artifactId>
+			<version>1.4.9</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jtwig</groupId>
+			<artifactId>jtwig-core</artifactId>
+			<version>5.87.0.RELEASE</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<testResources>
+			<testResource>
+				<directory>src/test/resources</directory>
+				<filtering>true</filtering>
+			</testResource>
+		</testResources>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugin</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.5.1</version>
+				<configuration>
+					<testSourceDirectory>src/test/java</testSourceDirectory>
+					<suiteXmlFiles>
+						<suiteXmlFile>${basedir}/src/test/resources/testng.xml</suiteXmlFile>
+					</suiteXmlFiles>
+					<parallel>methods</parallel>
+					<threadCount>1</threadCount>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.5.1</version>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>com.lazerycode.selenium</groupId>
+				<artifactId>driver-binary-downloader-maven-plugin</artifactId>
+				<version>1.0.17</version>
+				<configuration>
+					<!-- root directory that downloaded driver binaries will be stored in -->
+					<rootStandaloneServerDirectory>${basedir}/src/driver/binaries</rootStandaloneServerDirectory>
+					<!-- Where you want to store downloaded zip files -->
+					<downloadedZipFileDirectory>${basedir}/src/driver/zips</downloadedZipFileDirectory>
+					<!-- Download 32bit binaries -->
+					<thirtyTwoBitBinaries>true</thirtyTwoBitBinaries>
+					<!-- Download 64bit binaries -->
+					<sixtyFourBitBinaries>true</sixtyFourBitBinaries>
+					<!-- If set to false will download every version available (Other filters 
+						will be taken into account -->
+					<onlyGetLatestVersions>true</onlyGetLatestVersions>
+					<!-- Location of a custom repository map -->
+					<customRepositoryMap>${basedir}/RepositoryMap.xml</customRepositoryMap>
+
+					<operatingSystems>
+						<windows>true</windows>
+						<linux>true</linux>
+					</operatingSystems>
+
+					<!-- Provide a list of drivers and binary versions to download (this 
+						is a map so only one version can be specified per driver) -->
+					<getSpecificExecutableVersions>
+						<googlechrome>2.45</googlechrome>
+						<edge>6.17134</edge>
+					</getSpecificExecutableVersions>
+					<!-- Throw an exception if any specified binary versions that the plugin 
+						tries to download do not exist -->
+					<throwExceptionIfSpecifiedVersionIsNotFound>true</throwExceptionIfSpecifiedVersionIsNotFound>
+
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>selenium</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>1.4.0</version>
+			</plugin>
+		</plugins>
+	</build>
+</project>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="Coding Challenge Suite" parallel="false">
+ <test name="UI Tests">
+     <classes>
+         <class name="com.upgrade.codingchallenge.TestloanDetailsUI.java"></class>         
+         <class name="com.upgrade.codingchallenge.TestloanDetailsREST.java"></class>
+     </classes>
+ </test>
+</suite>
